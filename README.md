@@ -4,14 +4,21 @@ Enable to share the same TCP port for different applications, for example, http 
 OVERVIEW
 ========
 
+<pre>
 It is inspired by @yrutschle 's sslh project, but is implemented in a totally different way and works only on Linux.
 
 The whole workflow is as below:
+
 1. The program will listen on the common tcp port
+
 2. A new connection arrives and will be accepted by tcpmux
+
 3. The program will peek out the data of the first packet and check what protocol this connection is.
+   
    The protocol identification code can be internal (or builtin-in) code, or external program.
+   
    This enables to use more professional program to protocol identification
+   
 4. Once the protocol of the connection is set, the program will deliver the connection to real server, by.
     if the server is 1:N mode (one process will serve multiple clients, such as HTTP server), 
     the connection will be transfered to a TCP proxy server by UNIX socket. The TCP proxy server will take the client connection, 
@@ -28,9 +35,12 @@ This tcpmux framework is flexible to implement new features as could:
 2. access control: user can write its own access control program. Then configure tcpmux to launch this access control program 
    instead of real server for a proto. After access check pass, the access control program can launch the real server.
    Please refer to sample/access_control.c
-   
+
+</pre>
+
 BUILD
 =======
+<pre>
 1. Install libconfig 
    In Ubuntu system, please use
              apt install libconfig-dev            
@@ -45,9 +55,11 @@ BUILD
     sample/tcp_proxy --- a tcp proxy to connect 1:N server
     sample/access_control --- a sample access control program
     sample/sampe_proxy --- implement a TCP proxy while embedded mulit-clients echo services.
-    
+ </pre>
+ 
  RUN
  ====
+<pre>
 
  1. start the tcpmux
   sudo ./tcpmux -p <listen_port>  -d
@@ -74,11 +86,12 @@ BUILD
      ssh 127.0.0.1  <listen_port>
      4.3 test HTTP
      wget 127.0.0.1 <listen_port>
+</pre>
      
      
 CONFIGURE FILE
 ===============
-
+<pre>
 The configure file is ./tcpmux.cfg and it is self-explainsive enough, I guess.
  
 version = "1.0"
@@ -103,10 +116,10 @@ extension_module:
    {name: "sample"; file: "./sample/sample_xmodule.so"}
 )
 
-\#
-\# set the internal identifier's priroty and disable/enable
-\# name is the protocol identifier's name instead of protocol name
-\#
+#
+# set the internal identifier's priroty and disable/enable
+# name is the protocol identifier's name instead of protocol name
+#
 internal_identifer:
 (
    {name: "http";priority:0;disabled: 0},
@@ -116,8 +129,8 @@ internal_identifer:
    {name: "xssh";priority:2;disabled: 0}
 )
 
-\#if the same protocol handler is defined both in proxy_server and in proto_server
-\#proxy server handler will  be called first 
+#if the same protocol handler is defined both in proxy_server and in proto_server
+#proxy server handler will  be called first 
 
 proxy_server:
 (
@@ -133,16 +146,20 @@ proto_server:
    {proto: "ssh";server:"./sample/access_control";para:"ssh,/usr/sbin/sshd,-i"},
    {proto: "echo"; server:"./sample/echo_srv"}
 )
-     
+
+</pre>
+
 TODO
 ====
+
+<pre>
 1. protocol identification
    I'm trying to find open source protocol identification and porting to the project. But I do not find out a good one yet.
    The samples currently implemented are too simpled and too easy to be attacked.
          
 2. install scripts and packages
    I'm not familiar on this part yet.
-     
+ </pre>
   
      
   
