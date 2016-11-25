@@ -103,10 +103,10 @@ extension_module:
    {name: "sample"; file: "./sample/sample_xmodule.so"}
 )
 
-#
-# set the internal identifier's priroty and disable/enable
-# name is the protocol identifier's name instead of protocol name
-#
+\#
+\# set the internal identifier's priroty and disable/enable
+\# name is the protocol identifier's name instead of protocol name
+\#
 internal_identifer:
 (
    {name: "http";priority:0;disabled: 0},
@@ -116,8 +116,8 @@ internal_identifer:
    {name: "xssh";priority:2;disabled: 0}
 )
 
-#if the same protocol handler is defined both in proxy_server and in proto_server
-#proxy server handler will  be called first 
+\#if the same protocol handler is defined both in proxy_server and in proto_server
+\#proxy server handler will  be called first 
 
 proxy_server:
 (
