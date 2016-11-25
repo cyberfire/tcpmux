@@ -1,11 +1,12 @@
-# tcpmux
+tcpmux
+=======
 Enable to share the same TCP port for different applications, for example, http and ssh.
 
 OVERVIEW
 ========
 
 
-It is inspired by @yrutschle 's sslh project, but is implemented in a totally different way and works only on Linux.
+It is inspired by [@yrutschle](https://github.com/yrutschle/sslh) 's sslh project, but is implemented in a totally different way and works only on Linux.
 
 <pre>
 The whole workflow is as below:
@@ -46,7 +47,7 @@ BUILD
 <pre>
 1. Install libconfig 
    In Ubuntu system, please use
-             apt install libconfig-dev            
+         apt install libconfig-dev            
 2. Compile
          make should work
     
