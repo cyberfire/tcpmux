@@ -4,9 +4,10 @@ Enable to share the same TCP port for different applications, for example, http 
 OVERVIEW
 ========
 
-<pre>
+
 It is inspired by @yrutschle 's sslh project, but is implemented in a totally different way and works only on Linux.
 
+<pre>
 The whole workflow is as below:
 
 1. The program will listen on the common tcp port
@@ -21,8 +22,9 @@ The whole workflow is as below:
    
 4. Once the protocol of the connection is set, the program will deliver the connection to real server, by.
     if the server is 1:N mode (one process will serve multiple clients, such as HTTP server), 
-    the connection will be transfered to a TCP proxy server by UNIX socket. The TCP proxy server will take the client connection, 
-    establish a new connection with real server and forward packets between the connection pairs.
+    the connection will be transfered to a TCP proxy server by UNIX socket. The TCP proxy server
+    will take the client connection, establish a new connection with real server and forward 
+    packets between the connection pairs.
     
     if the server is 1:1 mode, tcpmux will launch the real server and pass the connection fd to the real server.
     
@@ -32,8 +34,9 @@ This tcpmux framework is flexible to implement new features as could:
                   Please refer to sample/sample_extern_ident.c
    it is also supported to register internal protocol identifier dyanmically 
                   please refer to sample/sample_xmodule.c 
-2. access control: user can write its own access control program. Then configure tcpmux to launch this access control program 
-   instead of real server for a proto. After access check pass, the access control program can launch the real server.
+2. access control: user can write its own access control program. Then configure tcpmux to launch 
+   this access control program instead of real server for a proto. After access check pass, the access 
+   control program can launch the real server.
    Please refer to sample/access_control.c
 
 </pre>
@@ -55,10 +58,11 @@ BUILD
     sample/tcp_proxy --- a tcp proxy to connect 1:N server
     sample/access_control --- a sample access control program
     sample/sampe_proxy --- implement a TCP proxy while embedded mulit-clients echo services.
- </pre>
+
+</pre>
  
- RUN
- ====
+RUN
+====
 <pre>
 
  1. start the tcpmux
@@ -86,6 +90,7 @@ BUILD
      ssh 127.0.0.1  <listen_port>
      4.3 test HTTP
      wget 127.0.0.1 <listen_port>
+
 </pre>
      
      
@@ -154,7 +159,9 @@ TODO
 
 <pre>
 1. protocol identification
-   I'm trying to find open source protocol identification and porting to the project. But I do not find out a good one yet.
+   I'm trying to find open source protocol identification and porting to the project. 
+   But I do not find out a good one yet.
+   
    The samples currently implemented are too simpled and too easy to be attacked.
          
 2. install scripts and packages
