@@ -35,9 +35,9 @@ This tcpmux framework is flexible to implement new features as could:
                   Please refer to sample/sample_extern_ident.c
    it is also supported to register internal protocol identifier dyanmically 
                   please refer to sample/sample_xmodule.c 
-2. access control: user can write its own access control program. Then configure tcpmux to launch 
-   this access control program instead of real server for a proto. After access check pass, the access 
-   control program can launch the real server.
+2. access control: user can write access control program to limit IP and time to access one service. 
+   Then configure tcpmux to launch this access control program instead of real server for a protocol. 
+   After access check pass, the access control program can launch the real server.
    Please refer to sample/access_control.c
 
 </pre>
@@ -67,30 +67,33 @@ RUN
 <pre>
 
  1. start the tcpmux
-  sudo ./tcpmux -p <listen_port>  -d
+  sudo ./tcpmux -p listen_port  -d
   sudo: launch sshd needs root priviledge
-  -p <listen_port>: optionally. If not present, this will get from config file: ./tcpmux.cfg
+  -p listen_port: optionally. If not present, this will get from config file: ./tcpmux.cfg
   -d:   run as daemon, optionally
   
  2. start the TCP proxy: (for HTTP) 
-    ./sample/tcp_proxy -a <http_ip> -p <http_port> -d
+    ./sample/tcp_proxy -a http_ip -p http_port -d
     
  3. check configure file ./tcpmux.cfg if the ssh path is correct or not in your system
       {proto: "ssh";server:"/usr/sbin/sshd";para:"-i"},
  
  4.  do test
      4.1 test echo server first
-     $cat > echo.txt <<EOF
+     
+     $cat > echo.txt &#60;&#60;  EOF
      echo
      hello, world
      could you hear me?
      Bye 
      EOF
-     $nc 127.0.0.1 <listen_port> < echo.txt
+     $nc 127.0.0.1 listen_port  &#60; echo.txt
+     
      4.2 test ssh
-     ssh 127.0.0.1  <listen_port>
+     ssh 127.0.0.1  listen_port
+     
      4.3 test HTTP
-     wget 127.0.0.1 <listen_port>
+     wget 127.0.0.1 listen_port
 
 </pre>
      
