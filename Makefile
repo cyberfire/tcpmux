@@ -21,9 +21,9 @@ XMODULE=sample_xmodule.so
 
 default: $(EXE_BINS) sample
 
-$(EXE_BINS): $(EXE_OBJS) $(COMMON_OBJS)
+$(EXE_BINS):  $(COMMON_OBJS)
 
-
+$(EXE_BINS):%:%.o #rule to explicitly define EXE depends on EXE.o
 
 .PHONY: sample
 
@@ -40,6 +40,8 @@ sample:
 
 %:%.o
 	$(CC) -rdynamic -o $@ $< $(COMMON_OBJS) $(LIBS)
+	
+	
 
 clean:
 	rm -rf *.o *.so $(EXE_BINS)
