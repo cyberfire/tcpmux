@@ -6,7 +6,7 @@ OVERVIEW
 ========
 
 
-It is inspired by [@yrutschle](https://github.com/yrutschle/sslh) 's sslh project, but is implemented in a totally different way and works only on Linux.
+It is inspired by [@yrutschle](https://github.com/yrutschle/sslh) 's sslh project, but is implemented in a totally different way and works only on Linux operating system.
 
 <pre>
 The whole workflow is as below:
